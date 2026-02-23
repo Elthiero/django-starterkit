@@ -19,7 +19,7 @@ staticfiles/
 
 # Environment
 .env
-
+build.sh
 
 # IDE
 .vscode/
