@@ -107,6 +107,12 @@ class AsyncPasswordResetForm(BootstrapFormMixin, PasswordResetForm):
                 threading.Thread.__init__(self)
 
             def run(self):
-                self.email.send(fail_silently=True)
+                try:
+                    # CHANGED: fail_silently is now False so it raises the error
+                    self.email.send(fail_silently=False)
+                    print(f"SUCCESS: Email sent to {self.email.to}")
+                except Exception as e:
+                    # This will print the exact reason it failed to your Render logs!
+                    print(f"EMAIL FAILED: {str(e)}")
 
         EmailThread(email_message).start()
