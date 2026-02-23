@@ -1,0 +1,164 @@
+{% extends 'public/base_public.html' %}
+{% load static %}
+
+{% block title %}Starter Kit — Django + HTMX Boilerplate{% endblock %}
+
+{% block content %}
+
+{# ── Hero ─────────────────────────────────────────────────── #}
+<section class="pub-hero">
+    <div class="pub-hero-inner">
+
+        <div class="pub-hero-badge pub-anim">
+            <i class="bi bi-stars"></i>
+            Django + HTMX Starter Kit &mdash; v1.0
+        </div>
+
+        <h1 class="pub-anim pub-anim-d1">
+            Ship your next<br>
+            Django app <em>faster</em>
+        </h1>
+
+        <p class="pub-hero-sub pub-anim pub-anim-d2">
+            A production-ready boilerplate with authentication, a professional dashboard,
+            responsive layout, and HTMX-powered interactions — all wired up and ready to go.
+        </p>
+
+        <div class="pub-hero-actions pub-anim pub-anim-d3">
+            <a href="{% url 'accounts:register' %}" class="pub-btn-solid pub-btn-solid-lg">
+                <i class="bi bi-rocket-takeoff-fill"></i> Get started free
+            </a>
+            <a href="{% url 'contact' %}" class="pub-btn-outline pub-btn-outline-lg">
+                Learn more <i class="bi bi-arrow-right"></i>
+            </a>
+        </div>
+
+        <p class="pub-hero-note pub-anim pub-anim-d4">
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            No credit card required &nbsp;&middot;&nbsp;
+            <i class="bi bi-check-circle-fill text-success me-1"></i>
+            Free to use
+        </p>
+    </div>
+
+    {# ── Browser Mockup ── #}
+    <div class="pub-hero-mockup pub-anim pub-anim-d4">
+        <div class="pub-mockup-frame">
+            <div class="pub-mockup-bar">
+                <div class="pub-mockup-dot"></div>
+                <div class="pub-mockup-dot"></div>
+                <div class="pub-mockup-dot"></div>
+                <div class="pub-mockup-url"></div>
+            </div>
+            <div class="pub-mockup-body">
+                <div class="pub-mockup-stat">
+                    <div class="pub-mockup-stat-val"></div>
+                    <div class="pub-mockup-stat-label"></div>
+                </div>
+                <div class="pub-mockup-stat">
+                    <div class="pub-mockup-stat-val" style="opacity:.35;"></div>
+                    <div class="pub-mockup-stat-label"></div>
+                </div>
+                <div class="pub-mockup-stat">
+                    <div class="pub-mockup-stat-val" style="opacity:.5;"></div>
+                    <div class="pub-mockup-stat-label"></div>
+                </div>
+                <div class="pub-mockup-stat">
+                    <div class="pub-mockup-stat-val" style="opacity:.65;"></div>
+                    <div class="pub-mockup-stat-label"></div>
+                </div>
+                <div class="pub-mockup-chart">
+                    {% for h in '12345678910'|make_list %}
+                        <div class="pub-bar" style="height: {{ forloop.counter|add:'20' }}%;"></div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── Tech Stack ───────────────────────────────────────────── #}
+<section class="pub-section pub-section-bg">
+    <div class="pub-section-inner text-center">
+        <p class="pub-section-label">Built with</p>
+        <h2 class="pub-section-title" style="max-width:480px; margin: 0 auto 16px;">
+            The best tools in the Python ecosystem
+        </h2>
+        <div class="pub-stack">
+            <span class="pub-stack-badge"><i class="bi bi-code-slash"></i> Django 5</span>
+            <span class="pub-stack-badge"><i class="bi bi-lightning-charge-fill"></i> HTMX 1.9</span>
+            <span class="pub-stack-badge"><i class="bi bi-bootstrap-fill"></i> Bootstrap 5</span>
+            <span class="pub-stack-badge"><i class="bi bi-snow"></i> Alpine.js</span>
+            <span class="pub-stack-badge"><i class="bi bi-shield-check"></i> Simple Authentication</span>
+            <span class="pub-stack-badge"><i class="bi bi-palette2"></i> django-bootstrap5</span>
+            <span class="pub-stack-badge"><i class="bi bi-bar-chart-fill"></i> ChartJs</span>
+        </div>
+    </div>
+</section>
+
+{# ── Features ─────────────────────────────────────────────── #}
+<section class="pub-section">
+    <div class="pub-section-inner">
+        <div class="text-center">
+            <p class="pub-section-label">What's included</p>
+            <h2 class="pub-section-title">Everything you need, nothing you don't</h2>
+            <p class="pub-section-sub mx-auto">
+                Skip the tedious setup and focus on what makes your app unique.
+                All the boilerplate is handled.
+            </p>
+        </div>
+
+        <div class="pub-features">
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                <h3>Authentication</h3>
+                <p>Login, register, and a full password reset flow — all pages styled and wired up.</p>
+            </div>
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-layout-sidebar-inset"></i></div>
+                <h3>Responsive Dashboard</h3>
+                <p>Collapsible sidebar on desktop, offcanvas drawer on mobile. Looks great everywhere.</p>
+            </div>
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+                <h3>HTMX Ready</h3>
+                <p>Progress bar, inline editing, modal dialogs, and infinite scroll patterns — all pre-built.</p>
+            </div>
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-palette2"></i></div>
+                <h3>Design System</h3>
+                <p>CSS custom properties power the whole theme. Rebrand in seconds by changing a few values.</p>
+            </div>
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-file-earmark-text-fill"></i></div>
+                <h3>Legal Pages</h3>
+                <p>Privacy policy and terms of service templates ready to fill with your own content.</p>
+            </div>
+            <div class="pub-feature">
+                <div class="pub-feature-icon"><i class="bi bi-chat-dots-fill"></i></div>
+                <h3>Contact &amp; FAQ</h3>
+                <p>A complete contact form with a responsive FAQ accordion, ready to hook up to your backend.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ── CTA ──────────────────────────────────────────────────── #}
+<section class="pub-section pub-section-bg">
+    <div class="pub-section-inner">
+        <div class="pub-cta">
+            <h2>Ready to build something great?</h2>
+            <p>Get started in minutes. No configuration headaches.</p>
+            <div class="d-flex align-items-center justify-content-center gap-3 flex-wrap" style="position:relative;">
+                <a href="{% url 'accounts:register' %}" class="pub-btn-white">
+                    <i class="bi bi-rocket-takeoff-fill"></i> Start for free
+                </a>
+                <a href="{% url 'contact' %}" class="pub-btn-ghost">
+                    Have questions? <i class="bi bi-arrow-right ms-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

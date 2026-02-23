@@ -1,0 +1,21 @@
+New sign-in detected — Starter Kit
+====================================
+
+Hi {{ user.first_name|default:user.username }},
+
+A new sign-in to your Starter Kit account was detected:
+
+  Date & Time : {% now "N j, Y \a\t g:i A" %} UTC
+  IP Address  : {{ ip_address|default:"Unknown" }}
+  Location    : {{ location|default:"Unknown" }}
+  Device      : {{ user_agent|default:"Unknown device" }}
+
+✓ Recognize this? No action needed.
+
+⚠ Don't recognize this?
+  → Reset your password: {{ site_url }}{% url 'accounts:password_reset' %}
+  → Contact us: {{ site_url }}{% url 'contact' %}
+
+---
+The Starter Kit Team
+© {% now "Y" %} Starter Kit — {{ site_url }}

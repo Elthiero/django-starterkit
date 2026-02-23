@@ -1,0 +1,16 @@
+Confirm your email address — Starter Kit
+=========================================
+
+Hi {{ user.first_name|default:user.username }},
+
+Thanks for signing up! Verify your email address to activate your account:
+
+{{ verification_url }}
+
+This link expires in 48 hours. If it expires, sign in and request a new one.
+
+If you didn't create a Starter Kit account, you can safely ignore this email.
+
+---
+The Starter Kit Team
+© {% now "Y" %} Starter Kit — {{ site_url }}

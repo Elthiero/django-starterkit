@@ -1,0 +1,61 @@
+<table class="table sk-table mb-0">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Joined Date</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody id="user-tbody">
+        {% for user in users %}
+        <tr>
+            <td>
+                <div class="fw-bold text-dark" style="font-size: 0.85rem;">
+                    {{ user.first_name }} {{ user.last_name|default:"" }}
+                </div>
+            </td>
+            <td class="text-muted">{{ user.email|default:"No email provided" }}</td>
+            <td>
+                {% if user.role == "ADMIN" %}
+                    <span class="sk-badge sk-badge-blue">Admin</span>
+                {% elif user.role == "MANAGER" %}
+                    <span class="sk-badge sk-badge-amber">Manager</span>
+                {% else %}
+                    <span class="sk-badge sk-badge-gray">Default</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if user.is_active %}
+                    <span class="sk-badge sk-badge-green">Active</span>
+                {% else %}
+                    <span class="sk-badge sk-badge-red">Inactive</span>
+                {% endif %}
+            </td>
+            <td class="text-muted" style="font-size: 0.8rem;">
+                {{ user.date_joined|date:"M d, Y" }}
+            </td>
+            <td class="text-end">
+                <a href="{% url 'accounts:edit_user' user.id %}" class="btn btn-sm btn-outline-secondary me-1" title="Edit">
+                    <i class="bi bi-pencil"></i>
+                </a>
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                        @click="deleteUserId = {{ user.id }}; deleteUserName = '{{ user.email }}'" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#deleteUserModal" title="Delete">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6" class="text-center py-5">
+                <i class="bi bi-inbox fs-2 text-muted d-block mb-2"></i>
+                <span class="text-muted">No users found matching your criteria.</span>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

@@ -1,0 +1,112 @@
+{% extends 'public/base_public.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Sign In — Starter Kit{% endblock %}
+
+{% block content %}
+<div class="pub-auth">
+    <div class="pub-auth-card pub-anim">
+
+        {# Logo #}
+        <div class="pub-auth-logo">
+            <div class="pub-auth-icon-wrap bg-primary text-white" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 20px;">
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+            </div>
+        </div>
+
+        <h1 class="pub-auth-title text-center mb-2 fw-bold">Welcome back</h1>
+        <p class="pub-auth-sub text-center text-muted mb-4">Sign in to your Starter Kit account</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {# Non-field errors #}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger mb-3" style="border-radius:8px; font-size:.875rem;">
+                    <i class="bi bi-exclamation-circle me-2"></i>
+                    {{ form.non_field_errors.0 }}
+                </div>
+            {% endif %}
+
+            <div class="mb-3">
+                <label for="id_username" class="form-label fw-medium">Email</label>
+                <input type="email"
+                       class="form-control {% if form.username.errors %}is-invalid{% endif %}"
+                       id="id_username"
+                       name="username"
+                       value="{{ form.username.value|default:'' }}"
+                       autocomplete="email"
+                       placeholder="you@example.com"
+                       required autofocus>
+                {% if form.username.errors %}
+                    <div class="invalid-feedback">{{ form.username.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {# Password #}
+            <div class="mb-1">
+                <div class="d-flex justify-content-between align-items-center">
+                    <label for="id_password" class="form-label fw-medium mb-0">Password</label>
+                    <a href="{% url 'accounts:password_reset' %}" class="text-decoration-none text-primary" style="font-size:.8rem; margin: 0;">
+                        Forgot password?
+                    </a>
+                </div>
+            </div>
+            <div class="mb-4 position-relative">
+                <input type="password"
+                       class="form-control {% if form.password.errors %}is-invalid{% endif %}"
+                       id="id_password"
+                       name="password"
+                       autocomplete="current-password"
+                       placeholder="••••••••"
+                       required>
+                <button type="button"
+                        onclick="togglePw('id_password', this)"
+                        class="btn btn-link position-absolute top-50 end-0 translate-middle-y pe-3 text-muted p-0 border-0"
+                        tabindex="-1">
+                    <i class="bi bi-eye" style="font-size:.95rem;"></i>
+                </button>
+                {% if form.password.errors %}
+                    <div class="invalid-feedback">{{ form.password.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {# Remember me #}
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="remember" name="remember">
+                <label class="form-check-label text-muted" for="remember" style="font-size:.875rem;">
+                    Keep me signed in
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 mb-4 fw-medium">
+                Sign in <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+        </form>
+
+        <div class="position-relative text-center mb-4">
+            <hr class="text-muted">
+            <span class="position-absolute top-50 start-50 translate-middle px-2 text-muted small bg-white" style="background: var(--sk-surface);">or</span>
+        </div>
+
+        <p class="text-center mb-0" style="font-size: 0.9rem;">
+            Don't have an account? <a href="{% url 'accounts:register' %}" class="text-decoration-none fw-bold">Create one free</a>
+        </p>
+
+    </div>
+</div>
+
+<script>
+function togglePw(id, btn) {
+    const el = document.getElementById(id);
+    const icon = btn.querySelector('i');
+    if (el.type === 'password') {
+        el.type = 'text';
+        icon.className = 'bi bi-eye-slash';
+    } else {
+        el.type = 'password';
+        icon.className = 'bi bi-eye';
+    }
+}
+</script>
+{% endblock %}

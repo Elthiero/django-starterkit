@@ -1,0 +1,134 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Starter Kit{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/public.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body class="pub-body">
+
+    {# ── Public Navbar ── #}
+    <header class="pub-nav" id="pub-nav">
+        <div class="pub-nav-inner">
+            <a href="{% url 'home' %}" class="pub-brand">
+                <div class="pub-brand-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                <span>Starter Kit</span>
+            </a>
+
+            {# Desktop nav links #}
+            <nav class="pub-nav-links d-none d-lg-flex">
+                <a href="{% url 'home' %}" class="pub-nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+                <a href="{% url 'contact' %}" class="pub-nav-link {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">Contact</a>
+                <a href="{% url 'privacy' %}" class="pub-nav-link {% if request.resolver_match.url_name == 'privacy' %}active{% endif %}">Privacy</a>
+                <a href="{% url 'terms' %}" class="pub-nav-link {% if request.resolver_match.url_name == 'terms' %}active{% endif %}">Terms</a>
+            </nav>
+
+            <div class="pub-nav-actions d-none d-lg-flex">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="pub-btn-outline">Dashboard</a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="pub-btn-outline">Sign in</a>
+                    <a href="{% url 'accounts:register' %}" class="pub-btn-solid">Get started</a>
+                {% endif %}
+            </div>
+
+            {# Mobile hamburger #}
+            <button class="pub-hamburger d-lg-none" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#mobileNav"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list"></i>
+            </button>
+        </div>
+
+        {# Mobile dropdown #}
+        <div class="collapse pub-mobile-menu" id="mobileNav">
+            <div class="pub-mobile-inner">
+                <a href="{% url 'home' %}" class="pub-mobile-link">Home</a>
+                <a href="{% url 'contact' %}" class="pub-mobile-link">Contact</a>
+                <a href="{% url 'privacy' %}" class="pub-mobile-link">Privacy</a>
+                <a href="{% url 'terms' %}" class="pub-mobile-link">Terms</a>
+                <hr class="my-2">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="pub-btn-solid d-block text-center">Dashboard</a>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="pub-mobile-link fw-semibold">Sign in</a>
+                    <a href="{% url 'accounts:register' %}" class="pub-btn-solid d-block text-center mt-2">Get started</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    {# ── Django Messages ── #}
+    {% if messages %}
+        <div class="container" style="padding-top: 80px; padding-bottom: 0; max-width: 720px;">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show mt-3" role="alert">
+                    <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'danger' or message.tags == 'error' %}exclamation-circle{% elif message.tags == 'warning' %}exclamation-triangle{% else %}info-circle{% endif %} me-2"></i>
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {# ── Page Content ── #}
+    <main id="pub-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    {# ── Public Footer ── #}
+    <footer class="pub-footer">
+        <div class="pub-footer-inner">
+            <div class="pub-footer-brand">
+                <a href="{% url 'home' %}" class="pub-brand mb-3">
+                    <div class="pub-brand-icon"><i class="bi bi-grid-3x3-gap-fill"></i></div>
+                    <span>Starter Kit</span>
+                </a>
+                <p class="pub-footer-tagline">A solid foundation for your next Django project.</p>
+            </div>
+
+            <div class="pub-footer-links">
+                <div class="pub-footer-col">
+                    <div class="pub-footer-col-title">Product</div>
+                    <a href="{% url 'home' %}">Home</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                </div>
+                <div class="pub-footer-col">
+                    <div class="pub-footer-col-title">Legal</div>
+                    <a href="{% url 'privacy' %}">Privacy Policy</a>
+                    <a href="{% url 'terms' %}">Terms of Service</a>
+                </div>
+                <div class="pub-footer-col">
+                    <div class="pub-footer-col-title">Account</div>
+                    <a href="{% url 'accounts:login' %}">Sign In</a>
+                    <a href="{% url 'accounts:register' %}">Register</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="pub-footer-bottom">
+            <span>&copy; {% now "Y" %} Starter Kit. All rights reserved.</span>
+            <div class="pub-footer-socials">
+                <a href="#" aria-label="GitHub"><i class="bi bi-github"></i></a>
+                <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    {% bootstrap_javascript %}
+    <script src="{% static 'js/public.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

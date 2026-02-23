@@ -1,0 +1,63 @@
+{% extends 'emails/email_base.html' %}
+
+{% block subject %}Verify your email address — Starter Kit{% endblock %}
+
+{% block preheader %}Almost there! Confirm your email to activate your Starter Kit account.{% endblock %}
+
+{% block body %}
+
+  <!-- Icon badge -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#dbeafe;border:2px solid #bfdbfe;border-radius:16px;width:64px;height:64px;text-align:center;vertical-align:middle;">
+        <span style="font-size:28px;line-height:64px;">&#9993;</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Heading -->
+  <h1 style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:bold;color:#0f172a;text-align:center;letter-spacing:-0.5px;line-height:1.2;">
+    Confirm your email address
+  </h1>
+
+  <p style="margin:0 0 28px;font-family:Georgia,serif;font-size:15px;color:#475569;text-align:center;line-height:1.7;">
+    Hi <strong style="color:#0f172a;">{{ user.first_name|default:user.username }}</strong>,
+    thanks for signing up! Just one more step — verify your email address to
+    activate your account.
+  </p>
+
+  <!-- CTA button -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#2563eb;border-radius:10px;">
+        <a href="{{ verification_url }}"
+           style="display:inline-block;padding:14px 36px;font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;letter-spacing:-0.2px;">
+          Verify email address &rarr;
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Fallback URL -->
+  <p style="margin:0 0 28px;font-family:Georgia,serif;font-size:13px;color:#94a3b8;text-align:center;line-height:1.6;">
+    Or copy and paste this link into your browser:<br>
+    <a href="{{ verification_url }}" style="color:#2563eb;word-break:break-all;">{{ verification_url }}</a>
+  </p>
+
+  <!-- Expiry note -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+    <tr>
+      <td style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:16px 18px;">
+        <p style="margin:0;font-family:Georgia,serif;font-size:13px;color:#1e40af;line-height:1.6;">
+          &#8505;&nbsp; This verification link expires in <strong>48 hours</strong>.
+          If it expires, simply sign in and request a new verification email.
+        </p>
+      </td>
+    </tr>
+  </table>
+
+{% endblock %}
+
+{% block footer_note %}
+  If you didn't create a Starter Kit account, you can safely ignore this email.
+{% endblock %}

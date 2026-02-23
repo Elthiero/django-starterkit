@@ -1,0 +1,249 @@
+{% extends 'public/base_public.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Contact & FAQ — Starter Kit{% endblock %}
+
+{% block content %}
+
+{# ── Hero ─────────────────────────────────────────────────── #}
+<div class="pub-contact-hero">
+    <div style="max-width:600px; margin:0 auto; padding:0 24px; position:relative; z-index:1;">
+        <span class="pub-prose-eyebrow pub-anim">Get in touch</span>
+        <h1 class="pub-prose-title pub-anim pub-anim-d1">We'd love to hear from you</h1>
+        <p class="pub-section-sub mx-auto pub-anim pub-anim-d2">
+            Have a question, found a bug, or just want to say hello?
+            Fill out the form below or check the FAQ — we usually respond within 24 hours.
+        </p>
+    </div>
+</div>
+
+{# ── Contact + Info ───────────────────────────────────────── #}
+<section class="pub-section" style="padding-top:0;">
+    <div class="pub-section-inner">
+        <div class="pub-contact-grid">
+
+            {# Contact Form #}
+            <div class="pub-contact-card pub-anim">
+                <h2 style="font-family:var(--pub-font-head); font-weight:700; font-size:1.15rem; margin-bottom:22px;">
+                    Send us a message
+                </h2>
+
+                {% if form_sent %}
+                    <div class="alert alert-success" style="border-radius:10px;">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        <strong>Message sent!</strong> We'll get back to you within 24 hours.
+                    </div>
+                {% else %}
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-6">
+                                <label for="id_name" class="form-label">Full name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="id_name" name="name"
+                                       value="{{ form.name.value|default:'' }}"
+                                       placeholder="Jane Smith" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="id_email" class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="id_email" name="email"
+                                       value="{{ form.email.value|default:'' }}"
+                                       placeholder="you@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="id_subject" class="form-label">Subject <span class="text-danger">*</span></label>
+                            <select class="form-select" id="id_subject" name="subject" required>
+                                <option value="" disabled selected>Choose a topic…</option>
+                                <option value="general">General Inquiry</option>
+                                <option value="bug">Bug Report</option>
+                                <option value="feature">Feature Request</option>
+                                <option value="billing">Billing</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="id_message" class="form-label">Message <span class="text-danger">*</span></label>
+                            <textarea class="form-control" id="id_message" name="message"
+                                      rows="5" placeholder="Describe your question or issue in detail…" required>{{ form.message.value|default:'' }}</textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100" style="padding:11px; font-size:.95rem; font-weight:700; font-family:var(--pub-font-head);">
+                            <i class="bi bi-send me-2"></i> Send message
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+
+            {# Contact Info #}
+            <div class="pub-anim pub-anim-d1">
+                <h2 style="font-family:var(--pub-font-head); font-weight:700; font-size:1.15rem; margin-bottom:22px;">
+                    Other ways to reach us
+                </h2>
+
+                <div class="pub-contact-info-item">
+                    <div class="pub-contact-info-icon"><i class="bi bi-envelope-fill"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:.875rem; margin-bottom:2px;">Email</div>
+                        <a href="mailto:thierrydonambi@gmail.com" style="color:var(--pub-blue); font-size:.875rem; text-decoration:none;">
+                            thierrydonambi@gmail.com
+                        </a>
+                        <div style="font-size:.78rem; color:var(--pub-muted); margin-top:2px;">Typically replies within 24 hours</div>
+                    </div>
+                </div>
+
+                <div class="pub-contact-info-item">
+                    <div class="pub-contact-info-icon"><i class="bi bi-github"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:.875rem; margin-bottom:2px;">GitHub</div>
+                        <a href="https://github.com/elthiero/django-starterkit" style="color:var(--pub-blue); font-size:.875rem; text-decoration:none;">
+                            github.com/elthiero/django-starterkit
+                        </a>
+                        <div style="font-size:.78rem; color:var(--pub-muted); margin-top:2px;">Open an issue or contribute</div>
+                    </div>
+                </div>
+
+                <div class="pub-contact-info-item">
+                    <div class="pub-contact-info-icon"><i class="bi bi-twitter-x"></i></div>
+                    <div>
+                        <div style="font-weight:600; font-size:.875rem; margin-bottom:2px;">Twitter / X</div>
+                        <a href="#" style="color:var(--pub-blue); font-size:.875rem; text-decoration:none;">@starterkit</a>
+                        <div style="font-size:.78rem; color:var(--pub-muted); margin-top:2px;">DMs open for quick questions</div>
+                    </div>
+                </div>
+
+                {# Working hours #}
+                <div class="mt-4 p-4 rounded-3" style="background:var(--pub-blue-l); border:1px solid var(--pub-blue-mid);">
+                    <div style="font-weight:700; font-size:.875rem; color:var(--pub-blue); margin-bottom:10px;">
+                        <i class="bi bi-clock me-2"></i>Support Hours
+                    </div>
+                    <div style="font-size:.85rem; color:#1e40af; line-height:1.8;">
+                        Monday – Friday &nbsp;&nbsp; 9:00 AM – 6:00 PM (UTC)<br>
+                        Saturday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10:00 AM – 2:00 PM (UTC)<br>
+                        Sunday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Closed
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{# ── FAQ ──────────────────────────────────────────────────── #}
+<section class="pub-section pub-faq" id="faq">
+    <div class="pub-section-inner">
+        <div class="text-center mb-5">
+            <p class="pub-section-label">FAQ</p>
+            <h2 class="pub-section-title">Frequently asked questions</h2>
+            <p class="pub-section-sub mx-auto">
+                Can't find your answer here? <a href="#" style="color:var(--pub-blue);">Send us a message</a>.
+            </p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="accordion pub-accordion" id="faqAccordion">
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq1">
+                                Is Starter Kit free to use?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes! Starter Kit is completely free. Clone the repo, build on top of it,
+                                and ship your project without any licensing fees.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq2">
+                                What Python and Django version is required?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Starter Kit requires Python 3.11+ and Django 5.0+. We recommend staying
+                                on the latest stable releases for the best security and performance.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq3">
+                                Can I customize the theme colors?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Absolutely. The entire design is powered by CSS custom properties (variables).
+                                Open <code>style.css</code> or <code>public.css</code>, change the values in
+                                the <code>:root</code> block, and the whole theme updates instantly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Does it include email-based password reset?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes. The full 4-step password reset flow (request → email sent → set new password → complete)
+                                is built and styled. Just configure Django's email backend in your settings and it works out of the box.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq5">
+                                How does the collapsible sidebar work?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Clicking the toggle button in the topbar adds a <code>sidebar-collapsed</code>
+                                class to <code>&lt;body&gt;</code>. CSS transitions handle the width change
+                                from 260px to 68px (icon-only). The preference is saved to <code>localStorage</code>
+                                so it persists across page loads.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button"
+                                    data-bs-toggle="collapse" data-bs-target="#faq6">
+                                Can I use this with django-allauth?
+                            </button>
+                        </h2>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                Yes. The auth templates follow Django's standard naming conventions and are
+                                fully compatible with django-allauth. Social auth buttons can easily be dropped
+                                into the login and register cards.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'public/base_public.html' %}
+
+{% block title %}Privacy Policy — Starter Kit{% endblock %}
+
+{% block content %}
+<div class="pub-prose">
+    <div class="pub-prose-inner">
+
+        {# Header #}
+        <div class="pub-prose-header pub-anim">
+            <span class="pub-prose-eyebrow">Legal</span>
+            <h1 class="pub-prose-title">Privacy Policy</h1>
+            <p class="pub-prose-meta">
+                Last updated: <strong>January 1, 2025</strong> &nbsp;&middot;&nbsp;
+                Questions? <a href="{% url 'contact' %}">Contact us</a>
+            </p>
+        </div>
+
+        {# Layout with optional TOC #}
+        <div class="row g-5">
+            <div class="col-lg-8">
+                <div class="pub-prose-body pub-anim pub-anim-d1">
+
+                    <p>
+                        This Privacy Policy describes how Starter Kit ("we", "us", or "our") collects,
+                        uses, and shares information about you when you use our services. We're committed
+                        to being transparent about our data practices.
+                    </p>
+
+                    <h2 id="information-we-collect">1. Information We Collect</h2>
+                    <p>We collect information you provide directly to us, such as:</p>
+                    <ul>
+                        <li><strong>Account data:</strong> name, email address, username, and password when you register.</li>
+                        <li><strong>Profile data:</strong> any information you add to your profile.</li>
+                        <li><strong>Communications:</strong> messages you send via our contact form.</li>
+                    </ul>
+                    <p>We also collect data automatically when you use our services:</p>
+                    <ul>
+                        <li>Log data (IP address, browser type, pages visited, timestamps)</li>
+                        <li>Device information (hardware model, operating system, unique device identifiers)</li>
+                        <li>Cookies and similar tracking technologies</li>
+                    </ul>
+
+                    <h2 id="how-we-use">2. How We Use Your Information</h2>
+                    <p>We use the information we collect to:</p>
+                    <ul>
+                        <li>Provide, maintain, and improve our services</li>
+                        <li>Create and manage your account</li>
+                        <li>Send you transactional emails (account confirmation, password resets)</li>
+                        <li>Respond to your comments and questions</li>
+                        <li>Monitor and analyze usage trends</li>
+                        <li>Detect and prevent fraudulent or illegal activity</li>
+                    </ul>
+
+                    <h2 id="sharing">3. Sharing of Information</h2>
+                    <p>
+                        We do not sell, trade, or rent your personal information to third parties.
+                        We may share your information in the following limited circumstances:
+                    </p>
+                    <ul>
+                        <li><strong>Service providers:</strong> trusted partners who assist us in operating our platform under strict confidentiality.</li>
+                        <li><strong>Legal requirements:</strong> if required by law, court order, or governmental authority.</li>
+                        <li><strong>Business transfers:</strong> in connection with a merger, acquisition, or sale of assets.</li>
+                        <li><strong>With your consent:</strong> for any other purpose with your explicit agreement.</li>
+                    </ul>
+
+                    <h2 id="cookies">4. Cookies</h2>
+                    <p>
+                        We use cookies and similar tracking technologies to track activity on our service
+                        and hold certain information. You can instruct your browser to refuse all cookies
+                        or to indicate when a cookie is being sent. However, if you do not accept cookies,
+                        some parts of our service may not function properly.
+                    </p>
+
+                    <h2 id="data-retention">5. Data Retention</h2>
+                    <p>
+                        We retain your personal data for as long as your account is active or as needed to
+                        provide services. You may request deletion of your account and associated data at any
+                        time by contacting us.
+                    </p>
+
+                    <h2 id="your-rights">6. Your Rights</h2>
+                    <p>Depending on your location, you may have the right to:</p>
+                    <ul>
+                        <li>Access and receive a copy of your personal data</li>
+                        <li>Rectify inaccurate or incomplete data</li>
+                        <li>Request erasure of your personal data</li>
+                        <li>Object to or restrict processing of your data</li>
+                        <li>Data portability</li>
+                        <li>Lodge a complaint with your local data protection authority</li>
+                    </ul>
+
+                    <h2 id="security">7. Security</h2>
+                    <p>
+                        We implement appropriate technical and organizational measures to protect your
+                        personal information against unauthorized access, alteration, disclosure, or
+                        destruction. However, no method of transmission over the internet is 100% secure.
+                    </p>
+
+                    <h2 id="changes">8. Changes to This Policy</h2>
+                    <p>
+                        We may update this Privacy Policy from time to time. We will notify you of any
+                        changes by posting the new policy on this page and updating the "Last updated" date.
+                        We encourage you to review this policy periodically.
+                    </p>
+
+                    <h2 id="contact">9. Contact Us</h2>
+                    <p>
+                        If you have any questions about this Privacy Policy, please
+                        <a href="{% url 'contact' %}">contact us</a>.
+                    </p>
+
+                </div>
+            </div>
+
+            {# TOC #}
+            <div class="col-lg-4 d-none d-lg-block">
+                <nav class="pub-prose-toc pub-anim pub-anim-d2">
+                    <div class="pub-prose-toc-title">Contents</div>
+                    <a href="#information-we-collect">1. Information We Collect</a>
+                    <a href="#how-we-use">2. How We Use It</a>
+                    <a href="#sharing">3. Sharing</a>
+                    <a href="#cookies">4. Cookies</a>
+                    <a href="#data-retention">5. Data Retention</a>
+                    <a href="#your-rights">6. Your Rights</a>
+                    <a href="#security">7. Security</a>
+                    <a href="#changes">8. Changes</a>
+                    <a href="#contact">9. Contact</a>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

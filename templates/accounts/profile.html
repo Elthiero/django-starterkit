@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+{% block title %}My Profile — Starter Kit{% endblock %}
+
+{% block content %}
+<div class="sk-page-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+        <nav class="sk-breadcrumb mb-1">
+            <a href="/">Home</a><span class="sep">/</span><span>Profile</span>
+        </nav>
+        <h1 class="sk-page-title">My Profile</h1>
+    </div>
+    <span class="sk-badge sk-badge-gray border px-3 py-2 rounded-pill shadow-sm" style="font-size: 0.8rem;">
+        Last Login: {{ user.last_login|date:"M d, Y H:i" }}
+    </span>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-4 col-xl-3">
+        <div class="sk-card text-center h-100">
+            <div class="py-3">
+                <div class="sk-avatar mx-auto mb-3 shadow-sm" style="width: 100px; height: 100px; font-size: 2.5rem; background-color: var(--sk-primary);">
+                    {{ user.first_name|default:user.email|make_list|first|upper }}
+                </div>
+                
+                <h4 class="fw-bold mb-1">{{ user.get_full_name|default:user.email }}</h4>
+                <p class="text-muted mb-3" style="font-size: 0.85rem;">{{ user.email }}</p>
+                
+                <span class="sk-badge sk-badge-blue mb-4 px-3 py-2">
+                    {{ user.get_role_display|default:"Staff" }}
+                </span>
+
+                <hr class="" style="border-color: var(--sk-border);">
+
+                <div class="row text-center">
+                    <div class="col">
+                        <small class="text-muted text-uppercase" style="font-size: 0.7rem; font-weight: 600;">
+                            Joined Since: {{ user.date_joined|date:"M d, Y" }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8 col-xl-9">
+        <div class="sk-card mb-4">
+            
+            <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link {% if not password_form.errors %}active{% endif %} fw-bold" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab" aria-controls="personal" aria-selected="{% if not password_form.errors %}true{% else %}false{% endif %}">
+                        Personal Information
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link {% if password_form.errors %}active{% endif %} fw-bold" id="password-tab" data-bs-toggle="tab" data-bs-target="#password" type="button" role="tab" aria-controls="password" aria-selected="{% if password_form.errors %}true{% else %}false{% endif %}">
+                        Change Password
+                    </button>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="profileTabsContent">
+                
+                <div class="tab-pane fade {% if not password_form.errors %}show active{% endif %}" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3 mb-4">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name</label>
+                                {{ profile_form.first_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name</label>
+                                {{ profile_form.last_name }}
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Email Address</label>
+                                {{ profile_form.email }}
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="submit" name="update_profile" class="btn btn-primary px-4">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-pane fade {% if password_form.errors %}show active{% endif %}" id="password" role="tabpanel" aria-labelledby="password-tab">
+                    <form method="post"> 
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            {% for field in password_form %}
+                                <div class="col-md-8">
+                                    <label class="form-label">{{ field.label }}</label>
+                                    <input type="{{ field.field.widget.input_type }}" 
+                                        name="{{ field.name }}" 
+                                        id="{{ field.id_for_label }}" 
+                                        class="form-control"
+                                        {% if field.field.required %}required{% endif %}>
+                                    {% if field.errors %}
+                                        <div class="text-danger small mt-1">{{ field.errors.0 }}</div>
+                                    {% endif %}
+                                    {% if field.help_text %}
+                                        <div class="form-text small text-muted">{{ field.help_text|safe }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="mt-4">
+                            <button type="submit" name="change_password" class="btn btn-dark px-4">Update Password</button>
+                        </div>
+                    </form>
+                </div>
+                
+            </div> </div>
+    </div>
+</div>
+{% endblock %}

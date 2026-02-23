@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load django_bootstrap5 %}
+
+{% block title %}User Management — Starter Kit{% endblock %}
+
+{% block content %}
+<div x-data="{ deleteUserId: null, deleteUserName: '' }">
+    
+    <div class="sk-page-header d-flex align-items-start justify-content-between flex-wrap gap-3">
+        <div>
+            <nav class="sk-breadcrumb mb-1">
+                <a href="/">Home</a><span class="sep">/</span><span>Users</span>
+            </nav>
+            <h1 class="sk-page-title">User Management</h1>
+            <p class="sk-page-subtitle">View, search, and manage user accounts.</p>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary d-flex align-items-center gap-2" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="bi bi-person-plus-fill"></i> Add User
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-3 mb-4">
+        <div class="col-md-3">
+            <div class="sk-card border-start border-primary py-3">
+                <div class="text-muted small text-uppercase fw-bold mb-1">Total Users</div>
+                <div class="h3 fw-bold mb-0 text-dark">{{ total_users|default:0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sk-card border-start border-danger py-3">
+                <div class="text-muted small text-uppercase fw-bold mb-1">Total Admin</div>
+                <div class="h3 fw-bold mb-0 text-dark">{{ total_admins|default:0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sk-card border-start border-warning py-3">
+                <div class="text-muted small text-uppercase fw-bold mb-1">Total Managers</div>
+                <div class="h3 fw-bold mb-0 text-dark">{{ total_managers|default:0 }}</div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="sk-card border-start border-dark  py-3">
+                <div class="text-muted small text-uppercase fw-bold mb-1">Total Default</div>
+                <div class="h3 fw-bold mb-0 text-dark">{{ total_default|default:0 }}</div>
+            </div>
+        </div>
+    </div>
+
+<div class="sk-card mb-4 pb-0 border-bottom-0" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
+        <form class="row g-3 pb-4" onsubmit="event.preventDefault();">
+            <div class="col-md-8 col-lg-6">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-end-0 text-muted">
+                        <i class="bi bi-search"></i>
+                    </span>
+                    <input type="text" name="q" class="form-control border-start-0 ps-0" placeholder="Search name or email..." 
+                           hx-get="{% url 'accounts:manage_users' %}" 
+                           hx-trigger="keyup changed delay:300ms, search" 
+                           hx-target="#table-wrapper"
+                           hx-include="#role-filter"
+                           hx-indicator="#search-spinner">
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3">
+                <select name="role" id="role-filter" class="form-select" 
+                        hx-get="{% url 'accounts:manage_users' %}" 
+                        hx-trigger="change" 
+                        hx-target="#table-wrapper"
+                        hx-include="[name='q']"
+                        hx-indicator="#search-spinner">
+                    <option value="">All Roles</option>
+                    {% for role, display_name in roles %}
+                        <option value="{{ role }}">{{ display_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            </form>
+    </div>
+
+    <div class="sk-table-wrap" id="table-wrapper">
+        {% include "accounts/partials/user_table.html" %}
+    </div>
+
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header bg-light border-bottom-0">
+                    <h5 class="modal-title fw-bold">Add New User</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST">
+                    <div class="modal-body">
+                        {% csrf_token %}
+                        {% if form.errors %}
+                            <div class="alert alert-danger pb-0">
+                                <ul class="list-unstyled">
+                                    {% for field, errors in form.errors.items %}
+                                        {% for error in errors %}
+                                            <li><i class="bi bi-exclamation-circle me-2"></i><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">First Name</label>
+                                {{ form.first_name }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Last Name</label>
+                                {{ form.last_name }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted">Email Address</label>
+                                {{ form.email }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Role</label>
+                                {{ form.role }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label small fw-bold text-muted">Status</label>
+                                <div class="form-check form-switch mt-2">
+                                    {{ form.is_active }}
+                                    <label class="form-check-label">Active User</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted">Assign Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light"><i class="bi bi-lock"></i></span>
+                                    <input type="text" name="password" class="form-control" value="" placeholder="Enter password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-top-0 bg-light">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create User</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg">
+                <div class="modal-header border-0 pb-0">
+                    <h6 class="modal-title fw-bold text-danger">
+                        <i class="bi bi-exclamation-triangle me-2"></i>Delete User
+                    </h6>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body text-wrap">
+                    <p class="mb-0 text-muted">Delete <strong class="text-dark" x-text="deleteUserName"></strong>? This cannot be undone.</p>
+                </div>
+                <div class="modal-footer border-0 pt-0">
+                    <form :action="'/accounts/users/delete/' + deleteUserId + '/'" method="post" class="d-inline w-100 d-flex justify-content-end gap-2">
+                        {% csrf_token %}
+                        <button type="button" class="btn btn-sm btn-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-sm btn-danger">Yes, Delete</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .htmx-indicator { opacity: 0; transition: opacity 200ms ease-in; }
+    .htmx-request .htmx-indicator { opacity: 1; }
+    .htmx-request.htmx-indicator { opacity: 1; }
+</style>
+{% endblock %}

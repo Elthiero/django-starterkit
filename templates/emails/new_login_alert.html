@@ -1,0 +1,97 @@
+{% extends 'emails/email_base.html' %}
+
+{% block subject %}New sign-in to your Starter Kit account{% endblock %}
+
+{% block preheader %}A new sign-in was detected for your account. Review the details and secure your account if needed.{% endblock %}
+
+{% block body %}
+
+  <!-- Icon badge -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#dbeafe;border:2px solid #bfdbfe;border-radius:16px;width:64px;height:64px;text-align:center;vertical-align:middle;">
+        <span style="font-size:28px;line-height:64px;">&#128270;</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Heading -->
+  <h1 style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:bold;color:#0f172a;text-align:center;letter-spacing:-0.5px;line-height:1.2;">
+    New sign-in detected
+  </h1>
+
+  <p style="margin:0 0 24px;font-family:Georgia,serif;font-size:15px;color:#475569;text-align:center;line-height:1.7;">
+    Hi <strong style="color:#0f172a;">{{ user.first_name|default:user.username }}</strong>,
+    a new sign-in to your Starter Kit account was just detected. Here are the details:
+  </p>
+
+  <!-- Details table -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+         style="border:1px solid #e2e8f0;border-radius:10px;overflow:hidden;margin-bottom:24px;">
+    <tr style="background:#f8fafc;">
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#64748b;border-bottom:1px solid #e2e8f0;width:38%;">Date &amp; Time</td>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;color:#0f172a;border-bottom:1px solid #e2e8f0;">{% now "N j, Y \a\t g:i A" %} UTC</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#64748b;border-bottom:1px solid #e2e8f0;">IP Address</td>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;color:#0f172a;border-bottom:1px solid #e2e8f0;">{{ ip_address|default:"Unknown" }}</td>
+    </tr>
+    <tr style="background:#f8fafc;">
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#64748b;border-bottom:1px solid #e2e8f0;">Location</td>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;color:#0f172a;border-bottom:1px solid #e2e8f0;">{{ location|default:"Unknown" }}</td>
+    </tr>
+    <tr>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#64748b;">Device</td>
+      <td style="padding:12px 18px;font-family:Georgia,serif;font-size:13px;color:#0f172a;">{{ user_agent|default:"Unknown device" }}</td>
+    </tr>
+  </table>
+
+  <!-- Two outcomes -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:32px;">
+    <tr>
+      <td style="padding-bottom:10px;">
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>
+            <td style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:14px 16px;">
+              <p style="margin:0;font-family:Georgia,serif;font-size:13px;color:#166534;line-height:1.6;">
+                <strong>&#10003; Recognize this?</strong> No action needed — you're all set.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>
+            <td style="background:#fff1f2;border:1px solid #fecdd3;border-radius:10px;padding:14px 16px;">
+              <p style="margin:0;font-family:Georgia,serif;font-size:13px;color:#9f1239;line-height:1.6;">
+                <strong>&#9888; Don't recognize this?</strong>
+                <a href="{{ site_url }}{% url 'accounts:password_reset' %}" style="color:#be123c;font-weight:bold;">Reset your password</a>
+                immediately and <a href="{{ site_url }}{% url 'contact' %}" style="color:#be123c;font-weight:bold;">contact us</a>.
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
+    <tr>
+      <td style="background:#f8fafc;border:1.5px solid #e2e8f0;border-radius:10px;">
+        <a href="{{ site_url }}{% url 'accounts:password_reset' %}"
+           style="display:inline-block;padding:13px 32px;font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#dc2626;text-decoration:none;">
+          Secure my account &rarr;
+        </a>
+      </td>
+    </tr>
+  </table>
+
+{% endblock %}
+
+{% block footer_note %}
+  This is an automated security notification. We send these any time a new sign-in is detected.
+{% endblock %}

@@ -1,0 +1,150 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="x-apple-disable-message-reformatting">
+  <title>{% block subject %}Starter Kit{% endblock %}</title>
+
+  <style>
+    /* Reset */
+    * { box-sizing: border-box; }
+    body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+    table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+    img { -ms-interpolation-mode: bicubic; border: 0; line-height: 100%; outline: none; text-decoration: none; }
+    body { margin: 0 !important; padding: 0 !important; background-color: #f1f5f9; width: 100% !important; }
+
+    /* Links */
+    a { color: #2563eb; }
+    a:hover { color: #1d4ed8; }
+
+    /* Mobile */
+    @media only screen and (max-width: 620px) {
+      .em-wrap   { width: 100% !important; }
+      .em-card   { border-radius: 0 !important; }
+      .em-pad    { padding: 28px 20px !important; }
+      .em-pad-sm { padding: 16px 20px !important; }
+      .em-hide   { display: none !important; }
+      .em-full   { width: 100% !important; display: block !important; }
+      h1         { font-size: 24px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#f1f5f9;font-family:Georgia,'Times New Roman',serif;">
+
+  <!-- Preheader (hidden preview text) -->
+  <div style="display:none;font-size:1px;color:#f1f5f9;line-height:1px;max-height:0;max-width:0;opacity:0;overflow:hidden;">
+    {% block preheader %}{% endblock %}
+  </div>
+
+  <!-- Outer wrapper -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+         style="background:#f1f5f9;">
+    <tr>
+      <td style="padding:32px 16px 48px;">
+
+        <!-- Card wrapper -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0"
+               width="600" class="em-wrap"
+               style="margin:0 auto;">
+
+          <!-- ── Header ─────────────────────────────── -->
+          <tr>
+            <td style="padding-bottom:0;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td style="padding:20px 28px; background:#1e3a8a; border-radius:16px 16px 0 0; text-align:center;">
+
+                    <!-- Logo mark -->
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
+                      <tr>
+                        <td style="background:#2563eb;border-radius:10px;padding:10px 14px;display:inline-block;">
+                          <span style="font-size:20px;color:#ffffff;font-weight:bold;letter-spacing:-0.5px;font-family:Georgia,serif;">&#9783;</span>
+                        </td>
+                        <td style="padding-left:12px;vertical-align:middle;">
+                          <span style="font-family:Georgia,'Times New Roman',serif;font-size:20px;font-weight:bold;color:#ffffff;letter-spacing:-0.3px;">Starter Kit</span>
+                        </td>
+                      </tr>
+                    </table>
+
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── Accent bar ──────────────────────────── -->
+          <tr>
+            <td style="height:4px;background:linear-gradient(90deg,#2563eb 0%,#60a5fa 50%,#2563eb 100%);"></td>
+          </tr>
+
+          <!-- ── Body card ───────────────────────────── -->
+          <tr>
+            <td style="background:#ffffff;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0;">
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                <tr>
+                  <td class="em-pad" style="padding:44px 44px 36px;">
+                    {% block body %}{% endblock %}
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+          <!-- ── Divider ─────────────────────────────── -->
+          <tr>
+            <td style="background:#ffffff;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0;padding:0 44px;">
+              <hr style="border:none;border-top:1px solid #e2e8f0;margin:0;">
+            </td>
+          </tr>
+
+          <!-- ── Footer ─────────────────────────────── -->
+          <tr>
+            <td class="em-pad-sm"
+                style="background:#f8fafc;border:1px solid #e2e8f0;border-top:none;border-radius:0 0 16px 16px;padding:24px 44px;text-align:center;">
+
+              <p style="margin:0 0 8px;font-family:Georgia,serif;font-size:13px;color:#94a3b8;line-height:1.6;">
+                You received this email because you have an account with
+                <strong style="color:#64748b;">Starter Kit</strong>.
+              </p>
+              <p style="margin:0 0 12px;font-family:Georgia,serif;font-size:13px;color:#94a3b8;line-height:1.6;">
+                {% block footer_note %}If you didn't request this, you can safely ignore this email.{% endblock %}
+              </p>
+
+              <!-- Footer links -->
+              <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
+                <tr>
+                  <td style="padding:0 8px;">
+                    <a href="{{ site_url }}{% url 'privacy' %}"
+                       style="font-family:Georgia,serif;font-size:12px;color:#94a3b8;text-decoration:none;">Privacy</a>
+                  </td>
+                  <td style="color:#cbd5e1;font-size:12px;">&middot;</td>
+                  <td style="padding:0 8px;">
+                    <a href="{{ site_url }}{% url 'terms' %}"
+                       style="font-family:Georgia,serif;font-size:12px;color:#94a3b8;text-decoration:none;">Terms</a>
+                  </td>
+                  <td style="color:#cbd5e1;font-size:12px;">&middot;</td>
+                  <td style="padding:0 8px;">
+                    <a href="{{ site_url }}{% url 'contact' %}"
+                       style="font-family:Georgia,serif;font-size:12px;color:#94a3b8;text-decoration:none;">Contact</a>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="margin:14px 0 0;font-family:Georgia,serif;font-size:12px;color:#cbd5e1;">
+                &copy; {% now "Y" %} Starter Kit &nbsp;&middot;&nbsp; All rights reserved.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+        <!-- end card wrapper -->
+
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>

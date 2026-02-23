@@ -1,0 +1,97 @@
+{% extends 'emails/email_base.html' %}
+
+{% block subject %}Welcome to Starter Kit, {{ user.first_name|default:user.username }}!{% endblock %}
+
+{% block preheader %}You're in! Here's everything you need to get started with Starter Kit.{% endblock %}
+
+{% block body %}
+
+  <!-- Icon badge -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#dbeafe;border:2px solid #bfdbfe;border-radius:16px;width:64px;height:64px;text-align:center;vertical-align:middle;">
+        <span style="font-size:30px;line-height:64px;">&#127881;</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Heading -->
+  <h1 style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:bold;color:#0f172a;text-align:center;letter-spacing:-0.5px;line-height:1.2;">
+    Welcome aboard, {{ user.first_name|default:user.username }}!
+  </h1>
+
+  <p style="margin:0 0 28px;font-family:Georgia,serif;font-size:16px;color:#475569;text-align:center;line-height:1.7;">
+    Your Starter Kit account is ready. We're excited to have you here.
+  </p>
+
+  <!-- Divider -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:28px;">
+    <tr><td style="border-top:1px solid #e2e8f0;"></td></tr>
+  </table>
+
+  <!-- What's next list -->
+  <p style="margin:0 0 16px;font-family:Georgia,serif;font-size:15px;color:#0f172a;font-weight:bold;">
+    Here's what you can do next:
+  </p>
+
+  <!-- Step 1 -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:14px;">
+    <tr>
+      <td style="width:40px;vertical-align:top;padding-top:2px;">
+        <div style="width:28px;height:28px;background:#2563eb;border-radius:50%;text-align:center;line-height:28px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#ffffff;">1</div>
+      </td>
+      <td style="padding-left:12px;vertical-align:top;">
+        <p style="margin:0 0 3px;font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#0f172a;">Complete your profile</p>
+        <p style="margin:0;font-family:Georgia,serif;font-size:14px;color:#64748b;line-height:1.6;">Add your details so others can recognize you across the platform.</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Step 2 -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:14px;">
+    <tr>
+      <td style="width:40px;vertical-align:top;padding-top:2px;">
+        <div style="width:28px;height:28px;background:#2563eb;border-radius:50%;text-align:center;line-height:28px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#ffffff;">2</div>
+      </td>
+      <td style="padding-left:12px;vertical-align:top;">
+        <p style="margin:0 0 3px;font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#0f172a;">Explore your dashboard</p>
+        <p style="margin:0;font-family:Georgia,serif;font-size:14px;color:#64748b;line-height:1.6;">Get familiar with the interface — everything is right where you'd expect it.</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Step 3 -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="margin-bottom:32px;">
+    <tr>
+      <td style="width:40px;vertical-align:top;padding-top:2px;">
+        <div style="width:28px;height:28px;background:#2563eb;border-radius:50%;text-align:center;line-height:28px;font-family:Georgia,serif;font-size:13px;font-weight:bold;color:#ffffff;">3</div>
+      </td>
+      <td style="padding-left:12px;vertical-align:top;">
+        <p style="margin:0 0 3px;font-family:Georgia,serif;font-size:15px;font-weight:bold;color:#0f172a;">Reach out anytime</p>
+        <p style="margin:0;font-family:Georgia,serif;font-size:14px;color:#64748b;line-height:1.6;">Questions? Hit reply or visit our <a href="{{ site_url }}{% url 'contact' %}" style="color:#2563eb;">contact page</a>.</p>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto;">
+    <tr>
+      <td style="background:#2563eb;border-radius:10px;">
+        <a href="{{ site_url }}{% url 'dashboard' %}"
+           style="display:inline-block;padding:14px 36px;font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;letter-spacing:-0.2px;">
+          Go to your dashboard &rarr;
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:28px 0 0;font-family:Georgia,serif;font-size:14px;color:#94a3b8;text-align:center;line-height:1.6;">
+    Glad to have you on board.<br>
+    <strong style="color:#64748b;">The Starter Kit Team</strong>
+  </p>
+
+{% endblock %}
+
+{% block footer_note %}
+  You're receiving this because you created a Starter Kit account using this email address.
+{% endblock %}

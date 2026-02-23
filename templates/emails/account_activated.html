@@ -1,0 +1,83 @@
+{% extends 'emails/email_base.html' %}
+
+{% block subject %}Your account has been approved — Starter Kit{% endblock %}
+
+{% block preheader %}Great news! Your Starter Kit account has been reviewed and approved. You're all set.{% endblock %}
+
+{% block body %}
+
+  <!-- Icon badge -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#dcfce7;border:2px solid #bbf7d0;border-radius:16px;width:64px;height:64px;text-align:center;vertical-align:middle;">
+        <span style="font-size:28px;line-height:64px;">&#9989;</span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Heading -->
+  <h1 style="margin:0 0 12px;font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:bold;color:#0f172a;text-align:center;letter-spacing:-0.5px;line-height:1.2;">
+    You're approved!
+  </h1>
+
+  <p style="margin:0 0 28px;font-family:Georgia,serif;font-size:15px;color:#475569;text-align:center;line-height:1.7;">
+    Hi <strong style="color:#0f172a;">{{ user.first_name|default:user.username }}</strong>,
+    great news! Your Starter Kit account has been reviewed and
+    <strong style="color:#15803d;">approved</strong>. You now have full access.
+  </p>
+
+  <!-- Access summary -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%"
+         style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;margin-bottom:28px;">
+    <tr>
+      <td style="padding:20px 24px;">
+        <p style="margin:0 0 14px;font-family:Georgia,serif;font-size:14px;font-weight:bold;color:#0f172a;">
+          What you have access to:
+        </p>
+        <!-- Feature list -->
+        {% for feature in features|default:"Dashboard,Analytics,User management,Settings" %}
+        {% endfor %}
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+          <tr>
+            <td style="width:50%;padding:5px 0;font-family:Georgia,serif;font-size:14px;color:#374151;">
+              &#10003;&nbsp; Dashboard
+            </td>
+            <td style="width:50%;padding:5px 0;font-family:Georgia,serif;font-size:14px;color:#374151;">
+              &#10003;&nbsp; Analytics
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:5px 0;font-family:Georgia,serif;font-size:14px;color:#374151;">
+              &#10003;&nbsp; User management
+            </td>
+            <td style="padding:5px 0;font-family:Georgia,serif;font-size:14px;color:#374151;">
+              &#10003;&nbsp; Full settings
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- CTA button -->
+  <table role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin:0 auto 28px;">
+    <tr>
+      <td style="background:#2563eb;border-radius:10px;">
+        <a href="{{ site_url }}{% url 'login' %}"
+           style="display:inline-block;padding:14px 36px;font-family:Georgia,serif;font-size:16px;font-weight:bold;color:#ffffff;text-decoration:none;letter-spacing:-0.2px;">
+          Sign in and get started &rarr;
+        </a>
+      </td>
+    </tr>
+  </table>
+
+  <p style="margin:0;font-family:Georgia,serif;font-size:14px;color:#94a3b8;text-align:center;line-height:1.6;">
+    Questions? We're always here —
+    <a href="{{ site_url }}{% url 'contact' %}" style="color:#2563eb;">contact us</a>.
+  </p>
+
+{% endblock %}
+
+{% block footer_note %}
+  This notification was sent because your Starter Kit account status was updated by an administrator.
+{% endblock %}

@@ -1,0 +1,77 @@
+{% load static %}
+{% load django_bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Starter Kit{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+
+    {% bootstrap_css %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {% block extra_css %}{% endblock %}
+</head>
+
+<body>
+{% block layout %}
+
+    {# ── HTMX Progress Bar ──────────────────────────────── #}
+    <div id="sk-progress"></div>
+
+    {# ── Mobile Topbar (shown < lg) ─────────────────────── #}
+    {% include 'includes/_navbar.html' %}
+
+    {# ── App Shell ──────────────────────────────────────── #}
+    <div class="sk-shell">
+
+        {# ── Desktop Sidebar ────────────────────────────── #}
+        <aside class="sk-sidebar d-none d-lg-flex">
+            {% include 'includes/_sidebar.html' %}
+        </aside>
+
+        {# ── Mobile Offcanvas Sidebar ────────────────────── #}
+        <div class="offcanvas offcanvas-start d-lg-none" tabindex="-1" id="mobileSidebar" aria-labelledby="mobileSidebarLabel">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title fw-bold" id="mobileSidebarLabel">
+                    <i class="bi bi-grid-3x3-gap-fill me-2"></i>Starter Kit
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body p-0">
+                {% include 'includes/_sidebar.html' %}
+            </div>
+        </div>
+
+        {# ── Main content ────────────────────────────────── #}
+        <div class="sk-main">
+
+            {# ── Desktop Topbar ────────────────────────── #}
+            {% include 'includes/_topbar.html' %}
+
+            {# ── Scrollable content ────────────────────── #}
+            <div class="sk-content">
+                {% include 'includes/_messages.html' %}
+                {% block content %}{% endblock %}
+            </div>
+
+            {# ── Footer ────────────────────────────────── #}
+            {% include 'includes/_footer.html' %}
+
+        </div>{# end sk-main #}
+
+    </div>{# end sk-shell #}
+
+    {% bootstrap_javascript %}
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+
+{% endblock layout %}
+</body>
+</html>

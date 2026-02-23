@@ -1,0 +1,137 @@
+{% extends 'public/base_public.html' %}
+{% load django_bootstrap5 %}
+
+{% block title %}Create Account — Starter Kit{% endblock %}
+
+{% block content %}
+<div class="pub-auth">
+    <div class="pub-auth-card pub-anim" style="max-width:480px;">
+
+        {# Logo #}
+        <div class="pub-auth-logo">
+            <div class="pub-auth-icon-wrap bg-primary text-white" style="width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin: 0 auto 20px;">
+                <i class="bi bi-person-plus-fill"></i>
+            </div>
+        </div>
+
+        <h1 class="pub-auth-title text-center mb-2 fw-bold">Create your account</h1>
+        <p class="pub-auth-sub text-center text-muted mb-4">Get started with Starter Kit — free forever.</p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            {# Non-field errors #}
+            {% if form.non_field_errors %}
+                <div class="alert alert-danger mb-3" style="border-radius:8px; font-size:.875rem;">
+                    <i class="bi bi-exclamation-circle me-2"></i>{{ form.non_field_errors.0 }}
+                </div>
+            {% endif %}
+
+            {# Name row #}
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <label for="id_first_name" class="form-label fw-medium">First name</label>
+                    <input type="text"
+                           class="form-control {% if form.first_name.errors %}is-invalid{% endif %}"
+                           id="id_first_name" name="first_name"
+                           value="{{ form.first_name.value|default:'' }}"
+                           placeholder="Jane" autocomplete="given-name">
+                    {% if form.first_name.errors %}
+                        <div class="invalid-feedback">{{ form.first_name.errors.0 }}</div>
+                    {% endif %}
+                </div>
+                <div class="col-6">
+                    <label for="id_last_name" class="form-label fw-medium">Last name</label>
+                    <input type="text"
+                           class="form-control {% if form.last_name.errors %}is-invalid{% endif %}"
+                           id="id_last_name" name="last_name"
+                           value="{{ form.last_name.value|default:'' }}"
+                           placeholder="Smith" autocomplete="family-name">
+                    {% if form.last_name.errors %}
+                        <div class="invalid-feedback">{{ form.last_name.errors.0 }}</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# Email #}
+            <div class="mb-3">
+                <label for="id_email" class="form-label fw-medium">Email address</label>
+                <input type="email"
+                       class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                       id="id_email" name="email"
+                       value="{{ form.email.value|default:'' }}"
+                       placeholder="you@example.com" autocomplete="email" required>
+                {% if form.email.errors %}
+                    <div class="invalid-feedback">{{ form.email.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {# Password #}
+            <div class="mb-1">
+                <label for="id_password1" class="form-label fw-medium">Password</label>
+            </div>
+            <div class="mb-3 position-relative">
+                <input type="password"
+                       class="form-control {% if form.password1.errors %}is-invalid{% endif %}"
+                       id="id_password1" name="password1"
+                       placeholder="Min. 8 characters" autocomplete="new-password" required>
+                <button type="button"
+                        onclick="togglePw('id_password1', this)"
+                        class="btn btn-link position-absolute top-50 end-0 translate-middle-y pe-3 text-muted p-0 border-0"
+                        tabindex="-1">
+                    <i class="bi bi-eye" style="font-size:.95rem;"></i>
+                </button>
+                {% if form.password1.errors %}
+                    <div class="invalid-feedback d-block">{{ form.password1.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {# Confirm password #}
+            <div class="mb-4 position-relative">
+                <label for="id_password2" class="form-label fw-medium">Confirm password</label>
+                <input type="password"
+                       class="form-control {% if form.password2.errors %}is-invalid{% endif %}"
+                       id="id_password2" name="password2"
+                       placeholder="••••••••" autocomplete="new-password" required>
+                <button type="button"
+                        onclick="togglePw('id_password2', this)"
+                        class="btn btn-link position-absolute bottom-0 end-0 pe-3 text-muted p-0 border-0"
+                        style="height:42px;" tabindex="-1">
+                    <i class="bi bi-eye" style="font-size:.95rem;"></i>
+                </button>
+                {% if form.password2.errors %}
+                    <div class="invalid-feedback d-block">{{ form.password2.errors.0 }}</div>
+                {% endif %}
+            </div>
+
+            {# Terms #}
+            <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" id="agree" name="agree" required>
+                <label class="form-check-label text-muted" for="agree" style="font-size:.82rem;">
+                    I agree to the
+                    <a href="{% url 'terms' %}" target="_blank" class="text-decoration-none">Terms of Service</a> and
+                    <a href="{% url 'privacy' %}" target="_blank" class="text-decoration-none">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 py-2 mb-4 fw-medium">
+                Create account <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+        </form>
+
+        <p class="text-center mt-2 mb-0" style="font-size: 0.9rem;">
+            Already have an account? <a href="{% url 'accounts:login' %}" class="text-decoration-none fw-bold">Sign in</a>
+        </p>
+
+    </div>
+</div>
+
+<script>
+function togglePw(id, btn) {
+    const el = document.getElementById(id);
+    const icon = btn.querySelector('i');
+    el.type = el.type === 'password' ? 'text' : 'password';
+    icon.className = el.type === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash';
+}
+</script>
+{% endblock %}

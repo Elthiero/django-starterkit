@@ -1,0 +1,24 @@
+Welcome to Starter Kit, {{ user.first_name|default:user.username }}!
+================================================================
+
+Your account is ready. We're excited to have you here.
+
+Here's what you can do next:
+
+1. Complete your profile
+   Add your details so others can recognize you.
+
+2. Explore your dashboard
+   Everything is right where you'd expect it.
+
+3. Reach out anytime
+   Questions? Reply to this email or visit: {{ site_url }}{% url 'contact' %}
+
+→ Go to your dashboard: {{ site_url }}{% url 'dashboard' %}
+
+---
+Glad to have you on board.
+The Starter Kit Team
+
+© {% now "Y" %} Starter Kit — {{ site_url }}
+Privacy: {{ site_url }}{% url 'privacy' %} | Terms: {{ site_url }}{% url 'terms' %}
